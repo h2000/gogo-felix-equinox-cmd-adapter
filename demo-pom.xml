@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.knowhowlab.osgi.experiments.gogo</groupId>
+    <artifactId>equinox-test</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <url>http://knowhowlab.org</url>
+
+    <developers>
+        <developer>
+            <name>Dmytro Pishchukhin</name>
+            <timezone>GMT+1</timezone>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>Know-How Lab</name>
+        <url>http://knowhowlab.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <profiles>
+        <profile>
+            <id>equinox</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <framework>equinox</framework>
+                <platform>platform-equinox-3.6.0.xml</platform>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <defaultGoal>pax:provision</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.ops4j</groupId>
+                <artifactId>maven-pax-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <runner>1.4.0</runner>
+                    <framework>${framework}</framework>
+                    <provision>
+                        <param>--log=debug</param>
+                        <param>--workingDirectory=target/runner</param>
+                        <param>--ee=J2SE-1.5</param>
+                        <param>--noConsole</param>
+                        <param>--definitionURL=file:${platform}</param>
+                        <param>http://osgilab.googlecode.com/files/equinox-gogo-adapter-1.0.0.jar</param>
+                    </provision>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

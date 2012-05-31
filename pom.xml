@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.knowhowlab.osgi.experiments.gogo</groupId>
+    <artifactId>equinox</artifactId>
+    <version>1.0.0</version>
+    <packaging>bundle</packaging>
+    <name>Eclipse Equinox adapter for Apache Felix GoGo shell</name>
+
+    <url>http://knowhowlab.org</url>
+    <developers>
+        <developer>
+            <name>Dmytro Pishchukhin</name>
+            <timezone>GMT+1</timezone>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>Know-How Lab</name>
+        <url>http://knowhowlab.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.gogo.runtime</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sonatype.tycho</groupId>
+            <artifactId>org.eclipse.osgi</artifactId>
+            <version>3.6.0.v20100517</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.11.0.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.0.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package/>
+                        <Import-Package>
+                            org.osgi*,
+                            org.eclipse.osgi.framework.console*,
+                            org.apache.felix.service.command*,
+                            !com.sun.jdi*
+                        </Import-Package>
+                        <Bundle-Activator>org.knowhowlab.osgi.experiments.gogo.equinox.Activator</Bundle-Activator>
+                        <Bundle-License>http://www.apache.org/licenses/LICENSE-2.0</Bundle-License>
+                        <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
+                        <Embed-Dependency>*;artifactId=javassist;inline=false</Embed-Dependency>
+                        <_removeheaders>Bnd-LastModified, Built-By, Private-Package, Tool,
+                            Build-Jdk, Include-Resource, Embed-Dependency
+                        </_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
